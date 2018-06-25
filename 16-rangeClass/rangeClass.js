@@ -89,3 +89,4 @@ console.log("Who do we appreciate!?");
 console.log(evenNumbers.size()); //should be 4
 console.log(evenNumbers.includes(2)); //should be true, 
 console.log(evenNumbers.includes(3)); //should be false
+
