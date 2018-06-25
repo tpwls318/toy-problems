@@ -31,21 +31,42 @@
 */
 
 // Introduce i into the global scope so we can test function efficiency
-var i;
+let i;
 
 // Feel free to add helper functions if needed.
 
-
-var bubbleSort = function(array) {
+// Total: 
+// worst: n(n+5)/2 => O(n^2)
+// best: 3n , When the array already sorted
+const bubbleSort = array => {
   // Your code here.
-  for(i=0;i<array.length-1;i++){
-      array.reduce( (acc,e,x,arr) => {
-      if( x < (array.length-i) && acc > e) { arr[x-1] = e ; arr[x] = acc; }
-      return acc > e ? acc : e;
-    });
+  let count = 0, tmp =0 ;
+  let newArr = [...array];// n
+  for(i=array.length-1;i>0;i--){
+      tmp = 0;
+      // n(n-1)/2
+      newArr.reduce( (acc,e,x,arr) => {
+        count++;
+        if( acc > e) [ arr[x-1], arr[x], tmp] = [e, acc, tmp+1];
+        return acc > e ? acc : e;
+    });   
+    array[i]=newArr.pop();// n
+    if(!tmp) {
+      array=[...newArr, ...array.slice(i)];// n
+      console.log(count);
+      return array;
+    }
   }
+  array[i]=newArr.pop();
+  console.log(count, newArr);
   return array;    
 };
 
 console.log(bubbleSort([7 ,2, 1, 3, 5, 4]));
+// [ 2, 1, 3, 5, 4, 7 ]
+// [ 1, 2, 3, 4, 5, 7 ]
+console.log(bubbleSort([7 ,6, 5, 4, 3, 2, 1]));
+// worst - count :  n(n-1)/2 = 21
+console.log(bubbleSort([1 ,2, 3, 4, 5, 6, 7]));
+// best  - count :  n-1 = 6
 
