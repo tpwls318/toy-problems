@@ -8,12 +8,13 @@
 
 var firstNonRepeatedCharacter = function (string) {
   // TODO: your solution here
-  var i, temp = string[0];
+  let i, temp = string[0];
   for(i in string){
-    if(temp !== string[Number(i)+1]) return string[Number(i)+1];
-    if(Number(i)===string.length-2) return false;
+    if(temp !== string[+i+1]) return string[+i+1];
+    if(+i===string.length-2) return false;
   }
 };
+console.log(firstNonRepeatedCharacter('ABA'));
 console.log(firstNonRepeatedCharacter('AACBDB'));
 
 
