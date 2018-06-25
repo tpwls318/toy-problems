@@ -19,29 +19,23 @@
  * etc...
  *
  */
-var _ = function(obj) {
-  if (obj instanceof _) return obj;
-  if (!(this instanceof _)) return new _(obj);
-  this._wrapped = obj;
-};
 
-_.memoize = function(func) {
-  var cache = {};
-  var returnFunc = function(){
-    var usedArgs='';
-    for(var i=0;i<arguments.length;i++)
-      usedArgs+=arguments[i];
-    if(cache[usedArgs] === undefined)
-      cache[usedArgs] = func.apply(this, arguments);
-    return cache[usedArgs];
+const memoize = func => {
+  let cache = {};
+  let returnFunc = (...args) => {
+    if(cache[args] === undefined)
+      cache[args] = func(...args);
+    return cache[args];
   };
+  returnFunc.cache = cache;
   return returnFunc;
 };
+const nthFibonacci = memoize ( n => 
+  n > 2 ? nthFibonacci(n-2) + nthFibonacci(n-1) : ( n? 1 : 0 )
+);
 
-var nthFibonacci = _.memoize ( function (n) {
-  return  n > 2 ? nthFibonacci(n-2) + nthFibonacci(n-1) : ( n? 1 : 0 );
-});
+console.log(nthFibonacci(8));
+console.log(nthFibonacci.cache);
 
-console.log(nthFibonacci(7));
 
 
