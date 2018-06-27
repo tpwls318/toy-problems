@@ -33,7 +33,7 @@
  * Illustration of a recursive approach:
  *
  *   1. Split the input array in half
- *   [4, 7, 4, 3, 9, 1, 2] -> [4, 7, 4], [3, 9, 1, 2
+ *   [4, 7, 4, 3, 9, 1, 2] -> [4, 7, 4], [3, 9, 1, 2]
  *
  *   2. Both sides are sorted recursively:
  *   [4, 7, 4] -> [4, 4, 7]
@@ -95,8 +95,43 @@
  *
  */
 
-
-
-var mergeSort = function(array) {
+// iterative approach - bottom-up
+var mergeSort_iter = function(array) {
   // Your code here.
+  if (!array.length) return array;
+  let result = [], n = Math.ceil(Math.log2(array.length));
+  // Initial step
+  result = array.map(x=>[x]);
+  // Repeat merge step
+  do {
+    result = result.filter((e,i) => !(i%2)).map( (e,i)=> merge(e, result[i*2+1]))
+  } while (n--);
+  return result.pop();
 };
+// recursive approach - top-down
+var mergeSort_recur = function(array) {
+  // Your code here.
+  if (!(array.length-1)) return array;
+  let result = [];
+  // 1. Split the input array in half
+  let [arr1, arr2] = [array.slice(0,array.length/2),array.slice(array.length/2)]
+  // 2. Both sides are sorted recursively & Both halves are merged:
+  result = merge(mergeSort_recur(arr1), mergeSort_recur(arr2));
+  return result;
+};
+const merge = (arr1, arr2) => {
+  let result = [];
+  let i=j=0;
+  if (!arr2) return arr1;
+  // push the lower of first value of 2 arrays
+  while ( i < arr1.length && j < arr2.length ){
+    arr1[i] < arr2[j] ? result.push(arr1[i++]) : result.push(arr2[j++]);
+  }
+  // concat one side when the other side is done
+  return i === arr1.length ? result.concat(arr2.slice(j)) : result.concat(arr1.slice(i));
+}
+let inputArray = [4,7,4,3,9,1,2,10,25];
+console.log(mergeSort_iter(inputArray));
+console.log(mergeSort_recur(inputArray));
+console.log(merge([1,4,5,11,12,15],[2,3,6,7,8,9,10]));
+

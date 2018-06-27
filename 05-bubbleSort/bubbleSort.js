@@ -41,7 +41,7 @@ let i;
 const bubbleSort = array => {
   // Your code here.
   let count = 0, tmp =0 ;
-  let newArr = [...array];// n
+  let newArr = [...array]; // n
   for(i=array.length-1;i>0;i--){
       tmp = 0;
       // n(n-1)/2
@@ -50,9 +50,9 @@ const bubbleSort = array => {
         if( acc > e) [ arr[x-1], arr[x], tmp] = [e, acc, tmp+1];
         return acc > e ? acc : e;
     });   
-    array[i]=newArr.pop();// n
+    array[i]=newArr.pop(); // n
     if(!tmp) {
-      array=[...newArr, ...array.slice(i)];// n
+      array=[...newArr, ...array.slice(i)]; // n
       console.log(count);
       return array;
     }
