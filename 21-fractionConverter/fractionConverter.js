@@ -15,10 +15,12 @@
 const toFraction = number => {
   // Your code here
   let [nat, dec] = `${number}`.split('.');
-  // toFraction(3.0) === '3/1'
+  // when dec is 0 or undefined, toFraction(3.0) === '3/1'
   if ( !dec || !+dec ) return `${nat}/1`;
   let n = dec.length, count=0;
+  // initailize denomination ex) .01 => 100
   let denom = Math.pow(10, dec.length);
+  // reduction (by 2 & 5)
   while( !(dec%2) && n > count++ )
     [dec, denom] = [dec/2,denom/2];
   count=0;
