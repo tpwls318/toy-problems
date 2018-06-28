@@ -12,6 +12,22 @@
  *
  */
 
-var toFraction = function(number) {
+const toFraction = number => {
   // Your code here
+  let [nat, dec] = `${number}`.split('.');
+  // toFraction(3.0) === '3/1'
+  if ( !dec || !+dec ) return `${nat}/1`;
+  let n = dec.length, count=0;
+  let denom = Math.pow(10, dec.length);
+  while( !(dec%2) && n > count++ )
+    [dec, denom] = [dec/2,denom/2];
+  count=0;
+  while( !(dec%5) && n > count++ )
+    [dec, denom] = [dec/5,denom/5];
+  // toFraction(2.5) === '5/2'
+  return `${dec+nat*denom}/${denom}`;
 };
+
+let arr = [0.5, 3.0, 2.5, 3.024];
+while(arr.length)
+  console.log(toFraction(arr.shift()));
