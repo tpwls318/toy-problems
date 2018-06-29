@@ -43,7 +43,40 @@
  *  - Make your function accept a parameter for the direction of rotation (1 = clockwise, -1 = counterclockwise)
  */
 
-var rotateMatrix = function(matrix
-) {
+var rotateMatrix = function(matrix, direction) {
   // Your code here.
+  const [columnLength, rowLength] = [matrix.length, matrix[0].length]
+  let newMatrix = matrix.slice();
+  let result = Array.from({length: rowLength},x=>[]);
+  let tmp = [];
+  if (direction === undefined || direction === 1){
+    while(newMatrix.length){
+      tmp = newMatrix.pop();
+      for (let i=rowLength-1;i>=0;i--) {
+        result[i].push(tmp.pop());
+      }
+    }
+  } else if (direction === -1){
+    newMatrix.reverse();
+    while(newMatrix.length){
+      tmp = newMatrix.pop();
+      result.forEach(el => {
+        el.push(tmp.pop());
+      });
+    }
+  }
+  return result;
 };
+var matrix = [
+  [1,2,3,4],
+  [5,6,7,8],
+  [9,'A','B','C'],
+  ['D','E','F','G'],
+  ['H','I','J','K']
+ ];
+
+let rotated = rotateMatrix(matrix, 1);
+console.log(rotated);
+let restorated = rotateMatrix(rotated, -1);
+console.log(restorated);
+
