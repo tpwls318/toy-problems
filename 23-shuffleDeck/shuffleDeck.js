@@ -33,6 +33,16 @@
 
 var shuffleDeck = function(deck) {
   // Your code here
+  let suffled = [], random=0, count = deck.length;
+  while(count){
+    random=Math.floor(Math.random()*deck.length);
+    if( deck[random] ){
+      suffled.push(deck[random]);
+      count--;
+      deck[random]=0;
+    } 
+  }
+  return suffled;
 };
 
 // Ordered deck generator provided for your testing convenience
@@ -50,3 +60,5 @@ var orderedDeck = function() {
 
   return deck;
 };
+
+console.log( shuffleDeck(orderedDeck()) );
