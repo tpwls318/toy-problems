@@ -27,6 +27,16 @@ var DIGIT_VALUES = {
 };
 
 var translateRomanNumeral = function(romanNumeral){
-// TODO: Implement me!
-
+  // TODO: Implement me!
+  let result=0;
+  for( let i=romanNumeral.length-1;i>=0;i--){ 
+    result += DIGIT_VALUES[romanNumeral[i]] > result? 
+              DIGIT_VALUES[romanNumeral[i]]:
+              -DIGIT_VALUES[romanNumeral[i]]
+  }
+  return result;
 };
+
+console.log("LX:",translateRomanNumeral("LX"));
+console.log("IV:",translateRomanNumeral("IV"));
+
